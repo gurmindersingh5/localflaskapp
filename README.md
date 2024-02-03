@@ -3,7 +3,7 @@
 This Flask application provides a complete solution for managing inventory, making sales, generating invoices, and tracking customer balances. It operates entirely on localhost without the need for an internet connection, using SQLite3 as the relational database.
 
 steps:
-1: git clone https://github.com/your-username/localflaskapp.git
+1: git clone https://github.com/your-username/localflaskapp.git \n
 2: cd localflaskapp
 3: python -m venv venv
 4: pip install -r requirements.txt
