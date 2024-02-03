@@ -1,0 +1,146 @@
+{% extends 'base.html' %}
+
+{% block title %}Add Product{% endblock %}
+
+{% block h1 %}Customer detail{% endblock %}
+
+{% block content %}
+
+<style>
+  
+  .invoice {
+      margin: 0 auto;
+      border: 1px solid #ddd;
+      padding: 10px;
+      background-color: #fff;
+      font-size: 14px;
+  }
+
+  
+
+
+  
+  #tbl th,
+  #tbl td{
+      text-align: left;
+  }
+</style>
+
+<div style="background-color: white; margin: 0px 5px 10px 5px; border-radius: 5px;">
+  <div style="color: darkgreen; display: flex; align-items: center; ">
+    <p style="font-size: 18px; margin-left: 13px;"><strong >Party name: </strong>{{  cust_data.name }}</p>
+</div>
+<div style="color: darkgreen; display: flex; align-items: center;">
+<p style="font-size: 18px; margin-left: 14px; "> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{  cust_data.address }}</p>
+</div>
+<div style="color: darkgreen; display: flex; align-items: center;">
+<p style="font-size: 18px; margin-left: 14px; "> &nbsp;&nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{  cust_data.contact }}</p>
+</div>
+
+</div>
+<div style="padding: 13px; background-color: white;">
+
+  <!-- class DEntry(db.Model):
+  entry_id = db.Column(db.Integer(), primary_key=True)
+  part_id = db.Column(db.Integer(), db.ForeignKey('p_entry.part_id') ,nullable=False)
+  container_qty = db.Column(db.Integer(), nullable=False)
+  pieces_qty = db.Column(db.Integer(), nullable=False)
+  price = db.Column(db.Numeric(scale=2), nullable=False)
+  time = db.Column(db.DateTime(timezone=True), server_default=func.now())
+  cust_id = db.Column(db.Integer, db.ForeignKey('c_entry.cust_id'), nullable=False)
+  invoice_no = db.Column(db.String(length=150), nullable=False)
+
+  def __repr__(self):
+      return f"{self.entry_id} {self.part_id} {self.container_qty} {self.pieces_qty} {self.price} {self.time} {self.cust_id} {self.invoice_no}" -->
+
+      
+<ul>
+    {% for invoice_no, items in purchased_data.items() %}
+    <li style="text-align: left; margin: 3px 5px 3px 5px; color: green;"> {{invoice_no}}   &nbsp; <a style="font-size: 14px; color: black;">Invoice total: {{invoice_totals[invoice_no]}} &nbsp;</a><button id="delete" class="del_btns" style="border-radius: 5px; border: 1px solid black; padding: 2px;" value="{{invoice_no}}">Clear record</button> </li> 
+    <table class="invoice">
+      <thead>
+        <tr>
+          <th style="width: 10px;">S.No</th>
+          <th>Decription of goods</th>
+          <th>Qty (CTN)</th>
+          <th>Qty (PCs)</th>
+          <th>Total</th>
+          <th>Dated</th>
+  
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in items %}
+          <tr>
+       
+            <td>{{ loop.index }}</td>
+            <td>{{ partlist[item.part_id] }}</td>
+            <td>{{ item.container_qty }}</td>
+            <td>{{ item.pieces_qty }}</td>
+            <td>{{ item.price }}</td>
+            <td>{{ item.time }}</td>
+  
+  
+          </tr>
+        {% endfor %}
+  
+      </tbody>
+    </table>
+    {% endfor %}
+  </ul>
+  
+  
+    
+<p id="tot" style="margin-left:1000px; color:darkgreen; font-size: 30px; font-weight: bold;" >Total : {{total}}</p>
+<p id="tot_reload" style="margin-left:1000px; color:black; font-size: 15px; font-weight: bold; margin-top: 5px;" ></p>
+
+
+     <div style=" background-color: lightyellow; color:darkgreen; padding: 3px; border: 1px solid darkgreen; display: inline-block;">
+              <ul></ul>
+        </div>
+
+        <script>
+          // Select all delete buttons by class name
+          var deleteBtns = document.querySelectorAll('.del_btns');
+      
+          // Add event listener to each delete button
+          deleteBtns.forEach(function(button) {
+              button.addEventListener('click', function() {
+                if (confirm('Accept ?')) {
+
+                  // Get the invoice number from the value attribute of the clicked button
+                  var invoiceNo = button.value;
+                  
+                  // Perform an AJAX request to delete the corresponding entry
+                  fetch('/delete_invoice', {
+                      method: 'POST',
+                      headers: {
+                          'Content-Type': 'application/json'
+                      },
+                      body: JSON.stringify({ invoiceNo: invoiceNo })
+                  })
+                  .then(response => {
+                      // Check if the response is successful
+                      if (response.ok) {
+                          // Remove the parent li element (the entire invoice entry) from the DOM
+                          button.textContent = 'Deleted';
+                          button.disabled = true;
+                          button.parentElement.style.textDecoration = 'line-through'
+                          document.getElementById('tot_reload').textContent = 'Total might have changed, refresh the page'
+
+                        } else {
+                          // Handle the error accordingly
+                          console.error('Failed to delete entry');
+                      }
+                  })
+                  .catch(error => {
+                      console.error('Error:', error);
+                  });
+                };
+              });
+          });
+      </script>
+      
+{% endblock %}

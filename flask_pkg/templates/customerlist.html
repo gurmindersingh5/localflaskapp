@@ -1,0 +1,162 @@
+{% extends 'base.html' %}
+
+{% block title %}Customer List...{% endblock %}
+{% block h1 %}Customer List{% endblock %}
+
+    {% block content %}
+    <link rel="stylesheet" type="text/css" href="/flask_pkg/static/css/style.css">
+
+<style>
+
+.btn {
+  transition: transform 0.0s; /* Combine transition properties */
+  color: rgb(1, 1, 1);
+  font-size: 20px;
+  padding: 2px auto;
+  border-radius: 3px;
+  width: 110px;
+  height: 40px;
+  background-color: red;
+  position: absolute;
+}
+
+
+.table {
+  border-collapse:collapse;
+  border-radius: 2px; /* Adjust the value as needed */
+  border: 0px solid grey;
+}
+
+
+.alt-row-color{
+  color: black;
+
+}
+</style>
+    <form method="POST" >
+        {{form.hidden_tag()}}
+            <div class="box" style="grid-template-columns: 35% 35% 30% ; position: relative;">
+
+                <div style="margin-right:20px; background-color: lightgreen;">{{ form.S_name.label(style="font-weight: bold;") }} {{ form.S_name(class="form-control", style="height:29px; width:350px;") }}</div>
+                <div style="margin-right:20px; background-color: yellow;">{{ form.S_address.label (style="font-weight: bold;") }} {{ form.S_address(class="form-control", style="height:29px; width:350px;") }}</div>
+                <div id="container" style="background-color: pink; position: relative; padding-top: 2px;">
+                  <button id="search_btn" class="btn" onmouseover="toggleclass()">Search</button>
+                </div>            
+            </div>
+    </form>
+
+ 
+
+<div  style="padding: 15px; font-size: 17px;" >
+  <table id="formattedTable" class="table" border="1"  >
+    <thead>
+      <tr>
+        <th style="width: 70px">CustID</th>
+        <th style="width: auto;">Cust Name &nbsp; </th>
+        <th style="text-align: right; margin-right: 3px; width:fit-content; min-width:200px;">Address</th>
+        <th style="text-align: right; margin-right: 3px; min-width:140px; width:fit-content;">Contact</th>
+      </tr>
+    </thead>  
+  
+    <tbody>
+      {% for item in results %}
+        {% if loop.index%2==0 %}
+
+        <tr id="even_tr" class="alt-row-color" style="background-color: #f5f5f5;">
+          <td style="width:70px;" >{{ item.cust_id }}</td>
+          <td style="overflow-y: hidden; width: auto;">{{ item.name }}</td>
+          <td style="text-align: right; margin-right: 3px; min-width: 150px; ">{{item.address}}</td>
+          <td style="text-align: right; margin-right: 3px; width: 150px;">{{ item.contact }}</td>
+        </tr>
+          
+        {% endif %}
+
+        {% if loop.index%2!=0 %}
+        <tr id="odd_tr" class="alt-row-color" style="background-color: white;">
+          <td style="width:70px; " >{{ item.cust_id }}</td>
+          <td style="overflow-y: hidden; width: auto;">{{ item.name }}</td>
+          <td style="text-align: right; margin-right: 3px; min-width: 150px; ">{{item.address}}</td>
+          <td style="text-align: right; margin-right: 3px; width: 150px;">{{ item.contact }}</td>
+        </tr>
+          {% endif %}
+
+        {% endfor %}
+      </tbody>
+    </table>
+
+     <div id="div_note" class="div-note" >
+              {{note}}
+        </div>
+ 
+<script src="{{ url_for('static', filename='js/jquery-3.6.4.min.js') }}"></script>
+<script src="/flask_pkg/static/js/mouseover_changecolor_forall.js"></script>
+<!-- script to animate {{note}} -->
+<script src="/flask_pkg/static/js/div-note.js"></script>
+<script>
+
+      document.addEventListener('DOMContentLoaded', function () {
+        const tableRows = document.querySelectorAll('#formattedTable tbody tr');
+
+        tableRows.forEach(row => {
+          row.addEventListener('click', function () {
+            const custId = row.cells[0].textContent; // Assuming the cust_id is in the first cell
+            sendCustIdToRoute(custId);
+            console.log(custId, 'here')
+          });
+        });
+      });
+
+      function sendCustIdToRoute(custId) {
+        fetch('/customerlist', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ custId: custId })
+        })
+        .then(response => {
+              console.log(response)
+                if (response.redirected) {
+                    window.location.href = response.url; // Redirect to the received URL
+                } else {
+                    console.error('Redirection not detected');
+                }
+            })
+        .catch(error => {
+          console.error('Error:', error);
+        });
+      }
+
+
+  // script ONE(1) for SEARCH button floating in div tag responds to mouse over
+        document.addEventListener('DOMContentLoaded', function () {
+          var container = document.getElementById('container');
+          var searchBtn = document.getElementById('search_btn');
+          var btnWidth = searchBtn.offsetWidth / 3;
+          var btnHeight = searchBtn.offsetHeight / 3;
+
+          container.style.paddingRight = '310px';
+
+          container.addEventListener('mousemove', function (event) {
+            container.style.paddingRight = '0px';
+
+            var x = event.clientX - container.offsetLeft - btnWidth - 250;
+            var y = event.clientY - container.offsetTop - btnHeight - 124;
+
+            x = Math.max(-160, Math.min(container.offsetWidth - searchBtn.offsetWidth , x));
+            y = Math.max(-160, Math.min(container.offsetHeight - searchBtn.offsetHeight, y));
+
+            searchBtn.style.transform = 'translate(' + x + 'px, ' + y + 'px)';
+          });
+        });
+  // script ONE(1) ENDS HERE
+
+  // script to open CUSTOMER DATA page on click by send cust ID 
+        
+</script>
+
+{% endblock %}
+
+{%block footer%}
+{%endblock%}
+
