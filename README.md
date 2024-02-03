@@ -16,14 +16,20 @@ steps:
 
 6: open localhost http://localhost:8080 in browser with port 8080
 
-Features
+Features:
+
 **Inventory Management**: Add, update, and delete products in the inventory.
+
 **Sales**: Record sales transactions, including quantity sold and price.
+
 **Invoicing**: Generate invoices for sales transactions with customizable details.
+
 **Customer Balance Tracking**: Track customer balances for credit sales and payments.
+
 **Local Database**: Uses SQLite3 as the relational database, ensuring data security and easy setup.
 
-Contributing
+Contributing:
+
 Contributions are welcome! If you find any issues or have suggestions for improvements, please submit a pull request or open an issue on GitHub.
 
 For any inquiries or support, please contact gurminder.barca@gmail.com.
