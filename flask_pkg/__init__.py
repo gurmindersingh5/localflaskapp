@@ -7,7 +7,7 @@ from flask_jwt_extended import JWTManager
 
 app = Flask(__name__,static_url_path='/flask_pkg/static')
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
-app.config['SECRET_KEY'] = "lovely17"
+app.config['SECRET_KEY'] = "secret123"
 
 # config session in app
 app.config['SESSION_TYPE'] = 'filesystem'
