@@ -4,7 +4,7 @@ FROM python:3
 WORKDIR /usr/src/app
 
 # Copy requirements.txt
-COPY flask_pkg/requirements.txt .
+COPY requirements.txt .
 
 # Install dependencies
 RUN pip install -r requirements.txt
