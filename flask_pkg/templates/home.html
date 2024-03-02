@@ -80,12 +80,12 @@
 <script src="/flask_pkg/static/js/jquery-3.6.4.min.js"></script>
 
 <script src="/flask_pkg/static/js/home.js"></script>
-
+<script> var date = new Date(); document.getElementById('datenow').textContent= date</script>
     {%endblock%}
 
 <footer>
 {% block footer%}
-    <a class="footer">&copy; 2023 Comapany Name. All rights reserved. (updated){%date%}</a>
+    <a class="footer">&copy; 2023 Comapany Name. All rights reserved. (updated on <span id="datenow"></span>)</a>
 {% endblock %}
 </footer>
 
