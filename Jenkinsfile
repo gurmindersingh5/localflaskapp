@@ -1,5 +1,7 @@
 pipeline {
-    agent { label 'agentforsonar' }
+    agent {
+        docker { label 'pyimage' }
+    }
     
     stages {
         stage('SCM') {
@@ -15,28 +17,29 @@ pipeline {
           }
         }
         
-        stage('SonarQube Analysis') {
+        // stage('SonarQube Analysis') {
             
-            steps {             
-                script {
-                    def scannerHome = tool 'sonar-scanner';
-                    withSonarQubeEnv() {
-                        sh "${scannerHome}/bin/sonar-scanner \
-                            -Dsonar.projectKey='testflask' \
-                            -Dsonar.sources=./flask_pkg"
-                            }
-                        }
-                    }
-                }
+        //     steps {             
+        //         script {
+        //             def scannerHome = tool 'sonar-scanner';
+        //             withSonarQubeEnv() {
+        //                 sh "${scannerHome}/bin/sonar-scanner \
+        //                     -Dsonar.projectKey='testflask' \
+        //                     -Dsonar.sources=./flask_pkg"
+        //                     }
+        //                 }
+        //             }
+        //         }
 
         stage('build python app continer') {
             
             steps {             
                 sh '''
                     echo 'trying to run docker on agenet machine'
-                    docker run hello-world
+                    '''
+                    //docker run hello-world
                  
-                '''
+
             }
         }
 
