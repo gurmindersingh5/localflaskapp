@@ -1,6 +1,6 @@
 pipeline {
     agent {
-        docker { label 'pyimage' }
+        docker { image 'node:20.11.1-alpine3.19' }
     }
     
     stages {
