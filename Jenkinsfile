@@ -1,23 +1,17 @@
 
 
 pipeline {
-    agent any
+    
+    agent {
+        docker { image 'new:latest'}
+    }
     
     stages {
-        stage('SCM') {
-            steps {
-                //checkout scm
-                echo 'passed'
-                }
-            }
         
-
         stage('docker check') {
-            agent {
-                docker { image 'python:3.9-alpine'}
-            }
             steps {
             sh '''
+                echo 'checking version ' 
                 docker --version
             '''
             }
