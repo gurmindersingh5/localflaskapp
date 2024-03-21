@@ -11,7 +11,11 @@ pipeline {
         stage('docker check') {
             steps {
                 print('inside python image here')
-            
+                sh '''
+                    pwd
+                    whoami
+                    users
+                '''
             }
         }
     }
