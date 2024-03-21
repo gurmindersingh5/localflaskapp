@@ -11,14 +11,15 @@ pipeline {
         stage('docker check') {
             steps {
                 print('inside python image here')
-            // sh '''
-            //     echo 'checking version ' 
-            //     pwd
-            //     which user
-            //     which groups
-            //     users
+            sh '''
+                echo 'checking version ' 
+                pwd
+                whoami
+                python --version
+                groups
+                users
                 
-            // '''
+            '''
             }
         }
     }
