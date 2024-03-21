@@ -19,22 +19,17 @@ pipeline {
             // environment {
             //     SONAR_TOKEN=testflask
             // }
-            steps {
+            steps {             
                 script {
-                withSonarQubeEnv() {
-                    sh "sonar-scanner \
-                        -Dsonar.projectKey='testflask' \
-                        -Dsonar.sources=./localflaskapp"
+                    def scannerHome = tool 'sonar-scanner';
+                    withSonarQubeEnv() {
+                        sh "${scannerHome}/bin/sonar-scanner \
+                            -Dsonar.projectKey='testflask' \
+                            -Dsonar.sources=./localflaskapp"
+                            }
+                        }
+                    }
                 }
-                }
-                // script {
-                //     def scannerHome = tool 'sonar-scanner';
-                //     withSonarQubeEnv() {
-                //         sh "${scannerHome}/bin/sonar-scanner"
-                //     }
-                // }
-            }
-        }
     }
 }
 
