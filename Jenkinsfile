@@ -11,8 +11,13 @@ pipeline {
         stage('docker check') {
             steps {
             sh '''
+                print('its python container')
                 echo 'checking version ' 
-                docker --version
+                pwd
+                which user
+                which groups
+                users
+                
             '''
             }
         }
