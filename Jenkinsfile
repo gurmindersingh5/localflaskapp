@@ -10,7 +10,7 @@ pipeline {
                 echo 'passed'
                 }
             }
-        }
+        
 
         stage('docker check') {
             steps {
@@ -19,6 +19,7 @@ pipeline {
             '''
             }
         }
+    }
 }
 //         stage('git-checkout') {
 //           steps {
