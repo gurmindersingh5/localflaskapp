@@ -13,9 +13,11 @@ pipeline {
         }
 
         stage('docker check') {
+            steps {
             sh '''
                 docker --version
             '''
+            }
         }
 }
 //         stage('git-checkout') {
