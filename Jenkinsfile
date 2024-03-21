@@ -1,16 +1,18 @@
 
 
-// pipeline {
-//     agent {
-//         docker { image 'pyimage' }
-//     }
+pipeline {
+    agent {
+        docker { image 'python:3.9-alpine' }
+    }
     
-//     stages {
-//         stage('SCM') {
-//             steps {
-//                 checkout scm
-//             }
-//         }
+    stages {
+        stage('SCM') {
+            steps {
+                checkout scm
+            }
+        }
+    }
+}
 //         stage('git-checkout') {
 //           steps {
 //             git credentialsId: '4c20f28a-13c3-4fd4-b676-bf1848df738b',
