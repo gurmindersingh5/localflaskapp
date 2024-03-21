@@ -2,13 +2,17 @@
 
 pipeline {
     agent {
-        docker { image 'python:3.9-alpine' }
+        docker { 
+                image 'python'
+                label '3.9-alpine' 
+               }
     }
     
     stages {
         stage('SCM') {
             steps {
-                checkout scm
+                //checkout scm
+                echo 'passed'
             }
         }
     }
