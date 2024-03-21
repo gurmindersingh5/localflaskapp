@@ -11,13 +11,7 @@ pipeline {
         stage('docker check') {
             steps {
                 print('inside python image here')
-            sh '''
-                echo 'checking version ' 
-                 
-                python3 --version
-                 
-                
-            '''
+            
             }
         }
     }
