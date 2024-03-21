@@ -1,5 +1,5 @@
 pipeline {
-    agent any
+    agent { label 'agentforsonar' }
     
     stages {
         stage('SCM') {
@@ -16,6 +16,9 @@ pipeline {
         }
         
         stage('SonarQube Analysis') {
+            // environment {
+            //     SONAR_TOKEN=
+            // }
             steps {
                 script {
                     def scannerHome = tool 'sonar-scanner';
