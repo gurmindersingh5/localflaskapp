@@ -12,7 +12,7 @@ pipeline {
             }
         }
 
-        stage('docker check) {
+        stage('docker check') {
             sh '''
                 docker --version
             '''
