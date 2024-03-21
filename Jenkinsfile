@@ -23,7 +23,7 @@ pipeline {
                 script {
                     def scannerHome = tool 'sonar-scanner';
                     withSonarQubeEnv() {
-                        sh "${scannerHome}/bin/sonar-scanner \
+                        sh "${scannerHome}/bin/sonar-scanner -X \
                             -Dsonar.projectKey='testflask' \
                             -Dsonar.sources=./localflaskapp"
                             }
