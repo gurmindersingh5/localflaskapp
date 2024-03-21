@@ -13,11 +13,9 @@ pipeline {
                 print('inside python image here')
             sh '''
                 echo 'checking version ' 
-                pwd
-                whoami
-                python --version
-                groups
-                users
+                 
+                python3 --version
+                 
                 
             '''
             }
