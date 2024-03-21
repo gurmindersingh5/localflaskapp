@@ -13,6 +13,9 @@ pipeline {
         
 
         stage('docker check') {
+            agent {
+                docker { image 'python:3.9-alpine'}
+            }
             steps {
             sh '''
                 docker --version
