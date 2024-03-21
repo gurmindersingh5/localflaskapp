@@ -20,10 +20,12 @@ pipeline {
             //     SONAR_TOKEN=testflask
             // }
             steps {
+                script {
                 withSonarQubeEnv() {
                     sh "sonar-scanner \
                         -Dsonar.projectKey='testflask' \
                         -Dsonar.sources=./localflaskapp"
+                }
                 }
                 // script {
                 //     def scannerHome = tool 'sonar-scanner';
