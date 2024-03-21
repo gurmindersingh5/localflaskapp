@@ -16,9 +16,7 @@ pipeline {
         }
         
         stage('SonarQube Analysis') {
-            // environment {
-            //     SONAR_TOKEN=testflask
-            // }
+            
             steps {             
                 script {
                     def scannerHome = tool 'sonar-scanner';
@@ -30,6 +28,19 @@ pipeline {
                         }
                     }
                 }
+
+        stage('build python app continer') {
+            
+            steps {             
+                sh '''
+                    echo 'trying to run docker on agenet machine'
+                    docker run hello-world
+                 
+                '''
+            }
+        }
+
+        
     }
 }
 
