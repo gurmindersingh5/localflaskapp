@@ -32,8 +32,7 @@ pipeline {
 
         stage('Install Docker') {
             steps {
-                sh 'curl -fsSL https://get.docker.com -o get-docker.sh'
-                sh 'sh get-docker.sh'
+                sh 'apt install docker.io'
                 sh 'docker --version' // Verify Docker installation
             }
         }
