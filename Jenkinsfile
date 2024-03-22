@@ -32,8 +32,8 @@ pipeline {
         stage('build using docker') {
              steps {             
                      script {
-                         def dockerImage = "flaskctn"
-                         def imageTag = "1"
+                         def dockerImage = 'flaskctn'
+                         def imageTag = '1'
 
                          sh 'DOCKER_BUILDKIT=1 docker build -t ${dockerImage}:${imageTag} .'
                          sh 'docker run -d -p 8000:8000 --name ${dockerImage} ${dockerImage}:${imageTag}'
