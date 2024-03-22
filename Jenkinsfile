@@ -2,12 +2,7 @@
 
 pipeline {
     
-    agent {
-        docker { 
-            image 'python:3.9'
-            args '-v /var/run/docker.sock:/var/run/docker.sock'
-        }
-    }
+    agent any
     
     stages {
 
