@@ -3,7 +3,7 @@
 pipeline {
     
     agent {
-        docker { image 'python:3.10'}
+        docker { image 'python:3.9-alpine'}
     }
     
     stages {
@@ -33,7 +33,7 @@ pipeline {
         stage('Install Docker') {
             steps {
                 sh 'curl -fsSL https://get.docker.com -o get-docker.sh'
-                sh 'sudo sh get-docker.sh'
+                sh 'sh get-docker.sh'
                 sh 'docker --version' // Verify Docker installation
             }
         }
