@@ -1,4 +1,4 @@
-FROM python:3
+FROM python:3.10
 
 # Copy the rest of the application
 COPY . .
