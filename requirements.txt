@@ -9,3 +9,4 @@ Werkzeug==2.3.0
 WTForms==3.0.1
 Flask-session
 flask_jwt_extended
+cachelib
