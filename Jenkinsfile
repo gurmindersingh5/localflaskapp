@@ -32,7 +32,7 @@ pipeline {
 
         stage('Install Docker') {
             steps {
-                sh 'apt install docker.io'
+                sh 'sudo apt install docker.io'
                 sh 'docker --version' // Verify Docker installation
             }
         }
