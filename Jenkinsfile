@@ -3,44 +3,52 @@
 pipeline {
     
     agent {
-        docker { image 'python:3.9'}
+        docker { image 'python:3.10'}
     }
     
     stages {
-        
-        stage('docker check') {
-            steps {
-                print('inside python image here')
-                sh '''
-                    pwd
-                    whoami
-                    users
-                '''
-            }
+
+        stage('git-checkout') {
+          steps {
+              echo 'checkout already done, passed'
+            // git credentialsId: '4c20f28a-13c3-4fd4-b676-bf1848df738b',
+            // url: 'https://github.com/gurmindersingh5/localflaskapp',
+            // branch: 'main'
+          }
         }
+        
+        stage('pre-build SonarQube Analysis') {
+             steps {             
+                 script {
+                     def scannerHome = tool 'sonar-scanner';
+                     withSonarQubeEnv() {
+                         sh "${scannerHome}/bin/sonar-scanner \
+                             -Dsonar.projectKey='testflask' \
+                             -Dsonar.sources=./flask_pkg"
+                             }
+                         }
+                }
+        }
+
+        stage('build using docker') {
+             steps {             
+                     script {
+                         def dockerImage = 'flaskctn'
+                         def imageTag = 'v1'
+
+                         sh "docker build -t ${dockerImage}:${imageTag) ."
+                         sh "docker run -d -p 8000:8000 --name ${dockerImage} ${dockerImage}:${imageTag)"   
+                         sh "docker ps"
+                     }
+                }
+        }
+
+        
     }
 }
-//         stage('git-checkout') {
-//           steps {
-//             git credentialsId: '4c20f28a-13c3-4fd4-b676-bf1848df738b',
-//             url: 'https://github.com/gurmindersingh5/localflaskapp',
-//             branch: 'main'
-//           }
-//         }
+
         
-//         // stage('SonarQube Analysis') {
-            
-//         //     steps {             
-//         //         script {
-//         //             def scannerHome = tool 'sonar-scanner';
-//         //             withSonarQubeEnv() {
-//         //                 sh "${scannerHome}/bin/sonar-scanner \
-//         //                     -Dsonar.projectKey='testflask' \
-//         //                     -Dsonar.sources=./flask_pkg"
-//         //                     }
-//         //                 }
-//         //             }
-//         //         }
+//         
 
 //         stage('build python app continer') {
             
