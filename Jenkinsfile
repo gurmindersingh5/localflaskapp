@@ -17,18 +17,18 @@ pipeline {
           }
         }
         
-        stage('pre-build SonarQube Analysis') {
-             steps {             
-                 script {
-                     def scannerHome = tool 'sonar-scanner';
-                     withSonarQubeEnv() {
-                         sh "${scannerHome}/bin/sonar-scanner \
-                             -Dsonar.projectKey='testflask' \
-                             -Dsonar.sources=./flask_pkg"
-                             }
-                         }
-                }
-        }
+        // stage('pre-build SonarQube Analysis') {
+        //      steps {             
+        //          script {
+        //              def scannerHome = tool 'sonar-scanner';
+        //              withSonarQubeEnv() {
+        //                  sh "${scannerHome}/bin/sonar-scanner \
+        //                      -Dsonar.projectKey='testflask' \
+        //                      -Dsonar.sources=./flask_pkg"
+        //                      }
+        //                  }
+        //         }
+        // }
 
         stage('build using docker') {
              steps {             
@@ -36,8 +36,8 @@ pipeline {
                          def dockerImage = 'flaskctn'
                          def imageTag = 'v1'
 
-                         sh "docker build -t ${dockerImage}:${imageTag) ."
-                         sh "docker run -d -p 8000:8000 --name ${dockerImage} ${dockerImage}:${imageTag)"   
+                         sh "docker build -t ${dockerImage}:${imageTag} ."
+                         sh "docker run -d -p 8000:8000 --name ${dockerImage} ${dockerImage}:${imageTag}"   
                          sh "docker ps"
                      }
                 }
