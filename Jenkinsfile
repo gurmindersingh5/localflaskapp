@@ -35,7 +35,7 @@ pipeline {
                          def dockerImage = 'flaskctn'
                          def imageTag = '1'
 
-                         sh 'DOCKER_BUILDKIT=1 docker build -t ${dockerImage}:${imageTag} .'
+                         sh 'DOCKER_BUILDKIT=1 docker build -t edimaadi:1 .'
                          sh 'docker run -d -p 8000:8000 --name ${dockerImage} ${dockerImage}:${imageTag}'
                          sh 'docker ps'
                      }
