@@ -30,15 +30,23 @@ pipeline {
         //         }
         // }
 
+        stage('Install Docker') {
+            steps {
+                sh 'curl -fsSL https://get.docker.com -o get-docker.sh'
+                sh 'sh get-docker.sh'
+                sh 'docker --version' // Verify Docker installation
+            }
+        }
+        
         stage('build using docker') {
              steps {             
                      script {
                          def dockerImage = 'flaskctn'
                          def imageTag = 'v1'
 
-                         sh "docker build -t ${dockerImage}:${imageTag} ."
-                         sh "docker run -d -p 8000:8000 --name ${dockerImage} ${dockerImage}:${imageTag}"   
-                         sh "docker ps"
+                         sh 'docker build -t ${dockerImage}:${imageTag} .'
+                         sh 'docker run -d -p 8000:8000 --name ${dockerImage} ${dockerImage}:${imageTag}'
+                         sh 'docker ps'
                      }
                 }
         }
