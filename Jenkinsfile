@@ -32,6 +32,9 @@ pipeline {
 
         stage('Install Docker') {
             steps {
+                sh 'apt-get update'
+                sh 'apt-get install sudo'
+
                 sh 'curl -fsSL https://get.docker.com -o get-docker.sh'
                 sh '/usr/bin/sudo sh get-docker.sh'
                 sh 'docker --version' // Verify Docker installation
