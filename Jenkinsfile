@@ -2,7 +2,9 @@
 
 pipeline {
     
-    agent any
+    agent {
+        docker { image 'python:3.10'}
+    }
     
     stages {
 
