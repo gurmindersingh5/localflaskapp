@@ -3,7 +3,7 @@
 pipeline {
     
     agent {
-        docker { image 'custompyimage:1'}
+        docker { image 'custompy:1'}
     }
     
     stages {
@@ -30,12 +30,6 @@ pipeline {
         //         }
         // }
 
-        stage('Install Docker') {
-            steps {
-                sh 'sudo apt install docker.io'
-                sh 'docker --version' // Verify Docker installation
-            }
-        }
         
         stage('build using docker') {
              steps {             
