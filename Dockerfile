@@ -11,4 +11,4 @@ RUN pip install -r requirements.txt
 EXPOSE 8000
 
 # Command to run the application
-CMD ["python", "run.py", "3.98.124.44:8000"]
+CMD ["python", "run.py", "0.0.0.0:8000"]
