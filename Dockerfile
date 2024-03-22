@@ -1,4 +1,4 @@
-FROM python:3.10 AS build
+FROM python:3.10 
 
 # Copy the rest of the application
 COPY . .
