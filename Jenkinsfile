@@ -35,7 +35,7 @@ pipeline {
                          def dockerImage = "flaskctn"
                          def imageTag = "v1"
 
-                         sh 'docker build tag ${dockerImage}:${imageTag} .'
+                         sh 'docker buildx build tag ${dockerImage}:${imageTag} .'
                          sh 'docker run -d -p 8000:8000 --name ${dockerImage} ${dockerImage}:${imageTag}'
                          sh 'docker ps'
                      }
