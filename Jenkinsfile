@@ -65,7 +65,8 @@ pipeline {
          stage('update k8s manifest and push to git') {
              steps {             
                      script {
-                        withCredentials([gitUsernamePassword(credentialsId: 'gitsecret', gitToolName: 'Default')]) {
+
+                         withCredentials([string(credentialsId: 'gitsecret', variable: 'gitsecretvar')]) {
                             sh '''
                                 cd Deploy
                                 sed -i "s/v[^[:space:]]*/${BUILD_NUMBER}/g" deploy.yml
