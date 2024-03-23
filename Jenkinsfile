@@ -75,9 +75,8 @@ pipeline {
                                 git add deploy.yml
                                 git commit -m 'Updated the deploy yml | Jenkins Pipeline'
                                 git remote -v
-                                git config --global user.email "gurminder.barca@gmail.com"
-                                git config --global user.name "gurmindersingh5"
-                                git push https://gurmindersingh5:4c20f28a-13c3-4fd4-b676-bf1848df738b@github.com/gurmindersingh5/CICD_kubernetes.git HEAD:main
+                              
+                                git push https://github.com/gurmindersingh5/CICD_kubernetes.git HEAD:main
                             '''
                         // }
                     }
