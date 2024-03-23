@@ -7,7 +7,7 @@ pipeline {
     environment {
         IMAGE_TAG = "${BUILD_NUMBER}"    
     }
-    
+    def dockerImage = 'gurmindersingh5/flask'
     stages {
 
         stage('git-checkout') {
@@ -36,8 +36,6 @@ pipeline {
         stage('build using docker') {
              steps {             
                      script {
-                         def dockerImage = 'gurmindersingh5/flask'
-
                          sh "DOCKER_BUILDKIT=1 docker build -t ${dockerImage}:${BUILD_NUMBER} ."
                          //sh "docker run -d -p 8000:8000 --name ${dockerImage} ${dockerImage}:${BUILD_NUMBER}"
                          //sh 'docker ps'
