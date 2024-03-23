@@ -65,13 +65,15 @@ pipeline {
          stage('update k8s manifest and push to git') {
              steps {             
                      script {
-                        withCredentials([gitUsernamePassword(credentialsId: 'gitsecretforpush', gitToolName: 'Default')]) {
+                        withCredentials([gitUsernamePassword(credentialsId: 'gitsecret', gitToolName: 'Default')]) {
                             sh '''
                                 cd Deploy
                                 sed -i "s/v[^[:space:]]*/${BUILD_NUMBER}/g" deploy.yml
                                 git add deploy.yml
                                 git commit -m 'Updated the deploy yml | Jenkins Pipeline'
                                 git remote -v
+                                git config --global user.email "gurminder.barca@gmail.com"
+                                git config --global user.name "gurmindersingh5"
                                 git push https://github.com/gurmindersingh5/CICD_kubernetes.git HEAD:main
                             '''
                         }
