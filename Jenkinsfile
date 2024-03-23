@@ -3,6 +3,10 @@
 pipeline {
     
     agent any
+
+    environement {
+        IMAGE_TAG = "${BUILD_NUMBER}"    
+    }
     
     stages {
 
@@ -32,16 +36,26 @@ pipeline {
         stage('build using docker') {
              steps {             
                      script {
-                         def dockerImage = 'flaskctn'
-                         def imageTag = '1'
+                         def dockerImage = 'gurmindersingh5/flask'
 
-                         sh "DOCKER_BUILDKIT=1 docker build -t ${dockerImage}:${imageTag} ."
-                         sh "docker run -d -p 8000:8000 --name ${dockerImage} ${dockerImage}:${imageTag}"
-                         sh 'docker ps'
+                         sh "DOCKER_BUILDKIT=1 docker build -t ${dockerImage}:${BUILD_NUMBER} ."
+                         //sh "docker run -d -p 8000:8000 --name ${dockerImage} ${dockerImage}:${BUILD_NUMBER}"
+                         //sh 'docker ps'
                      }
                 }
         }
 
+         stage('push the artifacts') {
+             steps {             
+                     script {
+                        sh '''
+                            echo 'pushing the artifacts to repo'
+                            docker push ${dockerImage}:${BUILD_NUMBER}
+                        '''
+                     }
+                }
+        }
+        
         
     }
 }
@@ -97,3 +111,8 @@ pipeline {
 // //     }
 
 // // }
+//notes:
+// install java, jenkins, docker.io, docker-buildx
+// sudo usermod -aG docker jenkins ,(optional: docker ubuntu), systemctl restart docker
+// install docker and docker pipeline in jenkins website.
+// good to go for pipeline execution
