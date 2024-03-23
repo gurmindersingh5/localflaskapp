@@ -50,7 +50,7 @@ pipeline {
                      script {
                         sh '''
                             echo 'pushing the artifacts to repo'
-                            docker push ${dockerImage}:${BUILD_NUMBER}
+                            "docker push ${dockerImage}:${BUILD_NUMBER}"
                         '''
                      }
                 }
