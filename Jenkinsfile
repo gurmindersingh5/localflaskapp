@@ -48,10 +48,8 @@ pipeline {
          stage('push the artifacts') {
              steps {             
                      script {
-                        sh '''
-                            echo 'pushing the artifacts to repo'
-                            "docker push ${dockerImage}:${BUILD_NUMBER}"
-                        '''
+                            sh "echo 'pushing the artifacts to repo'"
+                            sh "docker push ${dockerImage}:${BUILD_NUMBER}"
                      }
                 }
         }
