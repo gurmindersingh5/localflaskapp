@@ -66,8 +66,8 @@ pipeline {
              steps {             
                      script {
                             sh '''
-                                cd Deploy
-                                sed -i '' "s/v[^[:space:]]*/${BUILD_NUMBER}/g" deploy.yml
+                                
+                                sed -i '' "s/v[^[:space:]]*/${BUILD_NUMBER}/g" Deploy/deploy.yml
                                 git add deploy.yaml
                                 git commit -m 'Updated the deploy yaml | Jenkins Pipeline'
                                 git remote -v
