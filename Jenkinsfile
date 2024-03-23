@@ -13,7 +13,7 @@ pipeline {
         stage('git-checkout') {
           steps {
               echo 'checkout already done, passed'
-            // git credentialsId: '4c20f28a-13c3-4fd4-b676-bf1848df738b',
+            // git credentialsId: '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',
             // url: 'https://github.com/gurmindersingh5/localflaskapp',
             // branch: 'main'
           }
@@ -55,7 +55,7 @@ pipeline {
         stage('checkout kubernetes manifest SCM') {
              steps {             
                      script {
-                        git credentialsId: '4c20f28a-13c3-4fd4-b676-bf1848df738b',
+                        git credentialsId: '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',
                         url: 'https://github.com/gurmindersingh5/CICD_kubernetes.git',
                         branch: 'main'
                      }
@@ -66,19 +66,19 @@ pipeline {
              steps {             
                      script {
 
-                        // withCredentials([usernamePassword(credentialsId: 'gitsecret', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) 
-                        //  {
+                         withCredentials([usernamePassword(credentialsId: 'gitsecret', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) 
+                          {
 
                             sh '''
                                 cd Deploy
                                 sed -i "s/v[^[:space:]]*/${BUILD_NUMBER}/g" deploy.yml
                                 git add deploy.yml
+                                git status
                                 git commit -m 'Updated the deploy yml | Jenkins Pipeline'
                                 git remote -v
-                              
                                 git push https://github.com/gurmindersingh5/CICD_kubernetes.git HEAD:main
                             '''
-                        // }
+                        }
                     }
                 }
         }
@@ -88,7 +88,7 @@ pipeline {
 }
 
         
-//         
+//         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
 
 //         stage('build python app continer') {
             
