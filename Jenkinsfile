@@ -65,17 +65,17 @@ pipeline {
          stage('update k8s manifest and push to git') {
              steps {             
                      script {
+                        withCredentials([gitUsernamePassword(credentialsId: 'forgitpush', gitToolName: 'Default')]) {
                             sh '''
                                 cd Deploy
-                                sed -i 's/v[^[:space:]]*/${BUILD_NUMBER}/g' deploy.yml
+                                sed -i "s/v[^[:space:]]*/${BUILD_NUMBER}/g" deploy.yml
                                 git add deploy.yml
                                 git commit -m 'Updated the deploy yml | Jenkins Pipeline'
                                 git remote -v
-                                git push https://gurmindersingh5:G.singh@buttar.1,@github.com/gurmindersingh5/CICD_kubernetes.git HEAD:main
-
-                                
+                                git push https://github.com/gurmindersingh5/CICD_kubernetes.git HEAD:main
                             '''
-                     }
+                        }
+                    }
                 }
         }
 
