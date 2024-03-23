@@ -70,7 +70,9 @@ pipeline {
                                 pwd
                                 ls -ltr
                                 echo ${USER}
-                                sed -i '' "s/v[^[:space:]]*/${BUILD_NUMBER}/g" Deploy/deploy.yml
+                                cd Deploy
+                                pwd
+                                sed -i '' "s/v[^[:space:]]*/${BUILD_NUMBER}/g" deploy.yml
                                 git add deploy.yaml
                                 git commit -m 'Updated the deploy yaml | Jenkins Pipeline'
                                 git remote -v
