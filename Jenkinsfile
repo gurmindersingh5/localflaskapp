@@ -6,8 +6,8 @@ pipeline {
 
     environment {
         IMAGE_TAG = "${BUILD_NUMBER}"    
+        def dockerImage = 'gurmindersingh5/flask'
     }
-    def dockerImage = 'gurmindersingh5/flask'
     stages {
 
         stage('git-checkout') {
