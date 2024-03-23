@@ -66,8 +66,8 @@ pipeline {
              steps {             
                      script {
 
-                        withCredentials([usernamePassword(credentialsId: 'gitsecret', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) 
-                         {
+                        // withCredentials([usernamePassword(credentialsId: 'gitsecret', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) 
+                        //  {
 
                             sh '''
                                 cd Deploy
@@ -77,9 +77,9 @@ pipeline {
                                 git remote -v
                                 git config --global user.email "gurminder.barca@gmail.com"
                                 git config --global user.name "gurmindersingh5"
-                                git push https://github.com/gurmindersingh5/CICD_kubernetes.git HEAD:main
+                                git push https://gurmindersingh5:4c20f28a-13c3-4fd4-b676-bf1848df738b@github.com/gurmindersingh5/CICD_kubernetes.git HEAD:main
                             '''
-                        }
+                        // }
                     }
                 }
         }
