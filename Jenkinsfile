@@ -66,8 +66,7 @@ pipeline {
              steps {             
                      script {
                             sh '''
-                                pwd
-                                ls -l
+                                cd Deploy
                                 sed -i 's/v[^[:space:]]*/${BUILD_NUMBER}/g' deploy.yml
                                 git add deploy.yml
                                 git commit -m 'Updated the deploy yml | Jenkins Pipeline'
