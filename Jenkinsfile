@@ -72,6 +72,7 @@ pipeline {
                                 echo ${USER}
                                 cd Deploy
                                 pwd
+                                echo ${BUILD_NUMBER}
                                 sed -i '' "s/v[^[:space:]]*/${BUILD_NUMBER}/g" deploy.yml
                                 git add deploy.yaml
                                 git commit -m 'Updated the deploy yaml | Jenkins Pipeline'
