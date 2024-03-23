@@ -33,7 +33,7 @@ pipeline {
         // }
 
         
-        stage('build using docker') {
+        stage('Build using docker') {
              steps {             
                      script {
                          sh "DOCKER_BUILDKIT=1 docker build -t ${dockerImage}:${BUILD_NUMBER} ."
@@ -43,7 +43,7 @@ pipeline {
                 }
         }
 
-         stage('push the artifacts') {
+         stage('Push the artifacts to docker hub') {
              steps {             
                      script {
                             sh "echo 'pushing the artifacts to repo'"
@@ -51,7 +51,31 @@ pipeline {
                      }
                 }
         }
+
+        stage('checkout kubernetes manifest SCM') {
+             steps {             
+                     script {
+                        git credentialsId: '4c20f28a-13c3-4fd4-b676-bf1848df738b',
+                        url: 'https://github.com/gurmindersingh5/CICD_kubernetes.git',
+                        branch: 'main'
+                     }
+                }
+        }
         
+         stage('update k8s manifest and push to git') {
+             steps {             
+                     script {
+                            sh '''
+                                sed -i '' "s/v[^[:space:]]*/${BUILD_NUMBER}/g" deploy.yml
+                                git add deploy.yaml
+                                git commit -m 'Updated the deploy yaml | Jenkins Pipeline'
+                                git remote -v
+                                git push https://github.com/gurmindersingh5/CICD_kubernetes.git HEAD:main
+                            '''
+                     }
+                }
+        }
+
         
     }
 }
