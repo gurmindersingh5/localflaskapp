@@ -66,7 +66,9 @@ pipeline {
              steps {             
                      script {
 
-                         withCredentials([string(credentialsId: 'gitsecret', variable: 'gitsecretvar')]) {
+                        withCredentials([usernamePassword(credentialsId: '4c20f28a-13c3-4fd4-b676-bf1848df738b', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) 
+                         {
+
                             sh '''
                                 cd Deploy
                                 sed -i "s/v[^[:space:]]*/${BUILD_NUMBER}/g" deploy.yml
