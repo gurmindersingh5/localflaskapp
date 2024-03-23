@@ -66,8 +66,8 @@ pipeline {
              steps {             
                      script {
                             sh '''
-                                cd Deploy                              
-                                sed -i '' "s/v2/${BUILD_NUMBER}/g" deploy.yml
+                       
+                                sed -i '' "s/v[^[:space:]]*/${BUILD_NUMBER}/g" deploy.yml
                                 git add deploy.yml
                                 git commit -m 'Updated the deploy yml | Jenkins Pipeline'
                                 git remote -v
@@ -82,7 +82,7 @@ pipeline {
 }
 
         
-//         [^[:space:]]*
+//         
 
 //         stage('build python app continer') {
             
