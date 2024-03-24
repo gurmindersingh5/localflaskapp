@@ -75,24 +75,24 @@ pipeline {
                 }
         }
 
-        stage('update k8s manifest and push to git') {
+       stage('update k8s manifest and push to git') {
     steps {
         script {
-            withCredentials([usernamePassword(credentialsId: 'pat', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-                sh '''
-                    cd Deploy
-                    sed -i "s/ver[^[:space:]]*/ver${BUILD_NUMBER}/g" deploy.yml
-                    git add deploy.yml
-                    git status
-                    git commit -m 'Updated the deploy yml | Jenkins Pipeline'
-                    git remote -v
-                    echo 'made it to here'
-                    git push https://${USERNAME}:${PASSWORD}@github.com/gurmindersingh5/CICD_Kubernetes HEAD:main
-                '''
-            }
+            def gitToken = credentials('pat')
+            sh '''
+                cd Deploy
+                sed -i "s/ver[^[:space:]]*/ver${BUILD_NUMBER}/g" deploy.yml
+                git add deploy.yml
+                git status
+                git commit -m 'Updated the deploy yml | Jenkins Pipeline'
+                git remote -v
+                echo 'made it to here'
+                git push https://${gitToken}@github.com/gurmindersingh5/CICD_Kubernetes HEAD:main
+            '''
         }
     }
 }
+
 
         
         //  stage('update k8s manifest and push to git') {
