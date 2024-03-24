@@ -76,6 +76,7 @@ pipeline {
                                 git status
                                 git commit -m 'Updated the deploy yml | Jenkins Pipeline'
                                 git remote -v
+                                git config --global --add safe.directory /var/lib/jenkins/workspace/first-cicd-pipeline
                                 git push https://github.com/gurmindersingh5/CICD_kubernetes.git HEAD:main
                             '''
                         }
