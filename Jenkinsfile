@@ -67,7 +67,7 @@ pipeline {
                      script {
 
                          //withCredentials([usernamePassword(credentialsId: 'gitsecret', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) 
-                          withCredentials([gitUsernamePassword(credentialsId: 'gitsecret', gitToolName: 'default')]) {
+                          withCredentials([gitUsernamePassword(credentialsId: 'gitsecret', gitToolName: 'default')]) 
 
                          {
 
