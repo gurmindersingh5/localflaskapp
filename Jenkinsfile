@@ -13,12 +13,19 @@ pipeline {
     }
     stages {
 
+        stages {
+        stage('Print Credentials') {
+            steps {
+                    echo "Credentials: ${USER_CREDENTIALS}"
+                    echo "Username: ${USER_CREDENTIALS_USR}"
+                    echo "Password: ${USER_CREDENTIALS_PSW}"
+                }
+            }
+        }
+        
         stage('git-checkout') {
           steps {
               echo 'checkout already done, passed'
-              echo USER_CREDENTIALS
-              echo USER_CREDENTIALS_PSW
-              
             // git credentialsId: '',
             // url: 'https://github.com/gurmindersingh5/localflaskapp',
             // branch: 'main'
