@@ -13,7 +13,7 @@ pipeline {
     }
     stages {
 
-        stages {
+
         stage('Print Credentials') {
             steps {
                     echo "Credentials: ${USER_CREDENTIALS}"
@@ -21,7 +21,7 @@ pipeline {
                     echo "Password: ${USER_CREDENTIALS_PSW}"
                 }
             }
-        }
+
         
         stage('git-checkout') {
           steps {
