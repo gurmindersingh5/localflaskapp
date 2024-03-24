@@ -64,12 +64,8 @@ pipeline {
         
          stage('update k8s manifest and push to git') {
              steps {             
-                     script {
-                         
-                withCredentials([usernamePassword(credentialsId: 'secretforgit', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')])
-                    }
-
-
+                script {
+                    withCredentials([usernamePassword(credentialsId: 'secretforgit', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
                             sh '''
                                 cd Deploy
                                 sed -i "s/v[^[:space:]]*/v${BUILD_NUMBER}/g" deploy.yml
@@ -80,7 +76,6 @@ pipeline {
                                 sh 'git push https://github.com/gurmindersingh5/CICD_kubernetes.git HEAD:main'
                                 '''
                         }
-
                     }
                 }
         }
