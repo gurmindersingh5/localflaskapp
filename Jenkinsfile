@@ -74,7 +74,7 @@ pipeline {
                                 git status
                                 git commit -m 'Updated the deploy yml | Jenkins Pipeline'
                                 git remote -v
-                                git push origin main
+                                git push https://github.com/gurmindersingh5/CICD_Kubernetes HEAD:main
                                 echo 'made it to here'
                             '''    
                         
@@ -88,7 +88,6 @@ pipeline {
 }
 
         
-//         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
 
 //         stage('build python app continer') {
             
