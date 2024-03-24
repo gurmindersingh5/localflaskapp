@@ -65,11 +65,10 @@ pipeline {
          stage('update k8s manifest and push to git') {
              steps {             
                      script {
+                         
+                withCredentials([usernamePassword(credentialsId: 'secretforgit', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')])
+                    }
 
-                         //withCredentials([usernamePassword(credentialsId: 'gitsecret', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) 
-                          withCredentials([gitUsernamePassword(credentialsId: 'gitsecret', gitToolName: 'default')]) 
-
-                         {
 
                             sh '''
                                 cd Deploy
