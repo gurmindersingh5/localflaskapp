@@ -7,6 +7,8 @@ pipeline {
     environment { 
         IMAGE_TAG = "${BUILD_NUMBER}"    
         def dockerImage = 'gurmindersingh5/flask'
+        U = 'gurmindersingh5'
+        P = credentials('gitsecret')
     }
     stages {
 
@@ -76,9 +78,8 @@ pipeline {
                                 git status
                                 git commit -m 'Updated the deploy yml | Jenkins Pipeline'
                                 git remote -v
-                                git config --global --add safe.directory /var/lib/jenkins/workspace/first-cicd-pipeline
-                                git push https://github.com/gurmindersingh5/CICD_kubernetes.git HEAD:main
-                            '''
+                                '''
+                                sh 'git push https://${U}:${P}github.com/gurmindersingh5/CICD_kubernetes.git HEAD:main'
                         }
                     }
                 }
