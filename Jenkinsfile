@@ -7,20 +7,20 @@ pipeline {
     environment { 
         IMAGE_TAG = "${BUILD_NUMBER}"    
         def dockerImage = 'gurmindersingh5/flask'
-           USER_CREDENTIALS = credentials('pat')
+           //USER_CREDENTIALS = credentials('pat')
         
           
     }
     stages {
 
 
-        stage('Print Credentials') {
-            steps {
-                   // echo "Credentials: ${USER_CREDENTIALS}"
-                    echo "Username: ${USERNAME}"
-                    echo "Password: ${PASSWORD}"
-                }
-            }
+        // stage('Print Credentials') {
+        //     steps {
+        //            // echo "Credentials: ${USER_CREDENTIALS}"
+        //             echo "Username: ${USERNAME}"
+        //             echo "Password: ${PASSWORD}"
+        //         }
+        //     }
 
         
         stage('git-checkout') {
@@ -78,6 +78,7 @@ pipeline {
          stage('update k8s manifest and push to git') {
              steps {             
                 script {
+                    withCredentials([gitUsernamePassword(credentialsId: 'pat', gitToolName: 'git-tool')]) {
                         sh '''
                                 cd Deploy
                                 sed -i "s/ver[^[:space:]]*/ver${BUILD_NUMBER}/g" deploy.yml
@@ -89,7 +90,7 @@ pipeline {
                             '''    
                         sh  "git push https://${gurmindersingh5}:${USER_CREDENTIALS_PSW}@github.com/gurmindersingh5/CICD_Kubernetes HEAD:main"
                         
-                        
+                    }
                     }
                 }
         }
