@@ -75,11 +75,11 @@ pipeline {
         }
 
        stage('update k8s manifest and push to git') {
-           
-    steps {
-                 def gitToken = credentials('pat')
+                            def gitToken = credentials('pat')
 
-        script {
+    steps {
+
+        script { 
             sh '''
                 cd Deploy
                 sed -i "s/ver[^[:space:]]*/ver${BUILD_NUMBER}/g" deploy.yml
