@@ -37,7 +37,7 @@ pipeline {
         stage('Build using docker') {
              steps {             
                      script {
-                         sh "DOCKER_BUILDKIT=1 docker build -t ${dockerImage}:${BUILD_NUMBER} ."
+                         sh "DOCKER_BUILDKIT=1 docker build -t ${dockerImage}:ver${BUILD_NUMBER} ."
                          //sh "docker run -d -p 8000:8000 --name ${dockerImage} ${dockerImage}:${BUILD_NUMBER}"
                          //sh 'docker ps'
                      }
@@ -48,7 +48,7 @@ pipeline {
              steps {             
                      script {
                             sh "echo 'pushing the artifacts to repo'"
-                            sh "docker push ${dockerImage}:${BUILD_NUMBER}"
+                            sh "docker push ${dockerImage}:ver${BUILD_NUMBER}"
                      }
                 }
         }
@@ -66,7 +66,7 @@ pipeline {
          stage('update k8s manifest and push to git') {
              steps {             
                 script {
-                    withCredentials([string(credentialsId: 'newglobalforgit', variable: 'GIT_PASSWORD')]) {
+                    withCredentials([string(credentialsId: 'pat', variable: 'GIT_PASSWORD')]) {
                         sh '''
                                 cd Deploy
                                 sed -i "s/ver[^[:space:]]*/ver${BUILD_NUMBER}/g" deploy.yml
