@@ -20,18 +20,18 @@ pipeline {
           }
         }
         
-        stage('pre-build SonarQube Analysis') {
-             steps {             
-                 script {
-                     def scannerHome = tool 'sonar-scanner';
-                     withSonarQubeEnv() {
-                         sh "${scannerHome}/bin/sonar-scanner \
-                             -Dsonar.projectKey='testflask' \
-                             -Dsonar.sources=./flask_pkg"
-                             }
-                         }
-                }
-        }
+        // stage('pre-build SonarQube Analysis') {
+        //      steps {             
+        //          script {
+        //              def scannerHome = tool 'sonar-scanner';
+        //              withSonarQubeEnv() {
+        //                  sh "${scannerHome}/bin/sonar-scanner \
+        //                      -Dsonar.projectKey='testflask' \
+        //                      -Dsonar.sources=./flask_pkg"
+        //                      }
+        //                  }
+        //         }
+        // }
 
         
         stage('Build using docker') {
