@@ -33,24 +33,24 @@ pipeline {
         // }
 
         
-        stage('Build using docker') {
-             steps {             
-                     script {
-                         sh "DOCKER_BUILDKIT=1 docker build -t ${dockerImage}:${BUILD_NUMBER} ."
-                         //sh "docker run -d -p 8000:8000 --name ${dockerImage} ${dockerImage}:${BUILD_NUMBER}"
-                         //sh 'docker ps'
-                     }
-                }
-        }
+        // stage('Build using docker') {
+        //      steps {             
+        //              script {
+        //                  sh "DOCKER_BUILDKIT=1 docker build -t ${dockerImage}:${BUILD_NUMBER} ."
+        //                  //sh "docker run -d -p 8000:8000 --name ${dockerImage} ${dockerImage}:${BUILD_NUMBER}"
+        //                  //sh 'docker ps'
+        //              }
+        //         }
+        // }
 
-         stage('Push the artifacts to docker hub') {
-             steps {             
-                     script {
-                            sh "echo 'pushing the artifacts to repo'"
-                            sh "docker push ${dockerImage}:${BUILD_NUMBER}"
-                     }
-                }
-        }
+        //  stage('Push the artifacts to docker hub') {
+        //      steps {             
+        //              script {
+        //                     sh "echo 'pushing the artifacts to repo'"
+        //                     sh "docker push ${dockerImage}:${BUILD_NUMBER}"
+        //              }
+        //         }
+        // }
 
         stage('checkout kubernetes manifest SCM') {
              steps {             
