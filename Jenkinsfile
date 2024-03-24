@@ -7,7 +7,9 @@ pipeline {
     environment { 
         IMAGE_TAG = "${BUILD_NUMBER}"    
         def dockerImage = 'gurmindersingh5/flask'
-       
+           USER_CREDENTIALS = credentials('pat')
+        
+          
     }
     stages {
 
@@ -73,9 +75,9 @@ pipeline {
                                 git status
                                 git commit -m 'Updated the deploy yml | Jenkins Pipeline'
                                 git remote -v
-                                git push https://github.com/gurmindersingh5/CICD_Kubernetes HEAD:main
                                 echo 'made it to here'
                             '''    
+                        sh  "git push https://${USER_CREDENTIALS_USR}:${USER_CREDENTIALS_PSW}@github.com/gurmindersingh5/CICD_Kubernetes HEAD:main"
                         
                         
                     }
@@ -89,9 +91,7 @@ pipeline {
         
 
 //         stage('build python app continer') {
-        //      USER_CREDENTIALS = credentials('newglobalforgit')
-        // USER_CREDENTIALS_PSW
-        // USER_CREDENTIALS_USR
+       
 //             steps {             
 //                 sh '''
 //                     echo 'trying to run docker on agenet machine'
