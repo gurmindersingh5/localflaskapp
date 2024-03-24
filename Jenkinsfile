@@ -69,7 +69,7 @@ pipeline {
                     withCredentials([string(credentialsId: 'newglobalforgit', variable: 'GIT_PASSWORD')]) {
                         sh '''
                                 cd Deploy
-                                sed -i "s/v[^[:space:]]*/v${BUILD_NUMBER}/g" deploy.yml
+                                sed -i "s/ver[^[:space:]]*/ver${BUILD_NUMBER}/g" deploy.yml
                                 git add deploy.yml
                                 git status
                                 git commit -m 'Updated the deploy yml | Jenkins Pipeline'
