@@ -7,6 +7,7 @@ pipeline {
     environment { 
         IMAGE_TAG = "${BUILD_NUMBER}"    
         def dockerImage = 'gurmindersingh5/flask'
+        USER_CREDENTIALS = credentials('secretforgit')
     }
     stages {
 
@@ -65,7 +66,7 @@ pipeline {
          stage('update k8s manifest and push to git') {
              steps {             
                 script {
-                    withCredentials([usernamePassword(credentialsId: 'secretforgit', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
+                    withCredentials([string(credentialsId: 'newglobalforgit', variable: 'GIT_PASSWORD')]) {
                             sh '''
                                 cd Deploy
                                 sed -i "s/v[^[:space:]]*/v${BUILD_NUMBER}/g" deploy.yml
@@ -85,7 +86,7 @@ pipeline {
 }
 
         
-//         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
+//         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
 
 //         stage('build python app continer') {
             
