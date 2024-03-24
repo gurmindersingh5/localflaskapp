@@ -16,7 +16,7 @@ pipeline {
 
         stage('Print Credentials') {
             steps {
-                    echo "Credentials: ${USER_CREDENTIALS}"
+                   // echo "Credentials: ${USER_CREDENTIALS}"
                     echo "Username: ${USER_CREDENTIALS_USR}"
                     echo "Password: ${USER_CREDENTIALS_PSW}"
                 }
