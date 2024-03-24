@@ -79,8 +79,9 @@ pipeline {
                                 git commit -m 'Updated the deploy yml | Jenkins Pipeline'
                                 git remote -v
                                 '''
-                                sh 'git push https://${U}:${P}github.com/gurmindersingh5/CICD_kubernetes.git HEAD:main'
                         }
+                                                         sh 'git push https://${U}:${P}@github.com/gurmindersingh5/CICD_kubernetes.git HEAD:main'
+
                     }
                 }
         }
