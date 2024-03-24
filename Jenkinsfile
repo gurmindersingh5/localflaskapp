@@ -4,7 +4,7 @@ pipeline {
     
     agent any
 
-    environment {
+    environment { 
         IMAGE_TAG = "${BUILD_NUMBER}"    
         def dockerImage = 'gurmindersingh5/flask'
     }
