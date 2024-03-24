@@ -7,7 +7,7 @@ pipeline {
     environment { 
         IMAGE_TAG = "${BUILD_NUMBER}"    
         def dockerImage = 'gurmindersingh5/flask'
-        USER_CREDENTIALS = credentials('secretforgit')
+       
     }
     stages {
 
@@ -90,7 +90,9 @@ pipeline {
         
 
 //         stage('build python app continer') {
-            
+        //      USER_CREDENTIALS = credentials('newglobalforgit')
+        // USER_CREDENTIALS_PSW
+        // USER_CREDENTIALS_USR
 //             steps {             
 //                 sh '''
 //                     echo 'trying to run docker on agenet machine'
