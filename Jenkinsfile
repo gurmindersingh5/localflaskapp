@@ -13,7 +13,7 @@ pipeline {
         stage('git-checkout') {
           steps {
               echo 'checkout already done, passed'
-            // git credentialsId: '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',
+            // git credentialsId: '',
             // url: 'https://github.com/gurmindersingh5/localflaskapp',
             // branch: 'main'
           }
@@ -55,7 +55,7 @@ pipeline {
         stage('checkout kubernetes manifest SCM') {
              steps {             
                      script {
-                        git credentialsId: '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',
+                        git credentialsId: '',
                         url: 'https://github.com/gurmindersingh5/CICD_kubernetes.git',
                         branch: 'main'
                      }
@@ -66,8 +66,10 @@ pipeline {
              steps {             
                      script {
 
-                         withCredentials([usernamePassword(credentialsId: 'gitsecret', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) 
-                          {
+                         //withCredentials([usernamePassword(credentialsId: 'gitsecret', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) 
+                          withCredentials([gitUsernamePassword(credentialsId: 'gitsecret', gitToolName: 'default')]) {
+
+                         {
 
                             sh '''
                                 cd Deploy
