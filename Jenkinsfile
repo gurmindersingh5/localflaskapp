@@ -8,7 +8,6 @@ pipeline {
         IMAGE_TAG = "${BUILD_NUMBER}"    
         def dockerImage = 'gurmindersingh5/flask'
            //USER_CREDENTIALS = credentials('pat')
-         def gitToken = credentials('pat')
     }
     
     stages {
@@ -76,7 +75,10 @@ pipeline {
         }
 
        stage('update k8s manifest and push to git') {
+           
     steps {
+                 def gitToken = credentials('pat')
+
         script {
             sh '''
                 cd Deploy
