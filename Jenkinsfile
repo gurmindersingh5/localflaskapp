@@ -16,6 +16,9 @@ pipeline {
         stage('git-checkout') {
           steps {
               echo 'checkout already done, passed'
+              echo USER_CREDENTIALS
+              echo USER_CREDENTIALS_PSW
+              
             // git credentialsId: '',
             // url: 'https://github.com/gurmindersingh5/localflaskapp',
             // branch: 'main'
@@ -77,7 +80,7 @@ pipeline {
                                 git remote -v
                                 echo 'made it to here'
                             '''    
-                        sh  "git push https://${USER_CREDENTIALS_USR}:${USER_CREDENTIALS_PSW}@github.com/gurmindersingh5/CICD_Kubernetes HEAD:main"
+                        sh  "git push https://${gurmindersingh5}:${USER_CREDENTIALS_PSW}@github.com/gurmindersingh5/CICD_Kubernetes HEAD:main"
                         
                         
                     }
