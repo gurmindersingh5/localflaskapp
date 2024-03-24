@@ -67,15 +67,16 @@ pipeline {
              steps {             
                 script {
                     withCredentials([string(credentialsId: 'newglobalforgit', variable: 'GIT_PASSWORD')]) {
-                            sh '''
-                                cd Deploy
-                                sed -i "s/v[^[:space:]]*/v${BUILD_NUMBER}/g" deploy.yml
-                                git add deploy.yml
-                                git status
-                                git commit -m 'Updated the deploy yml | Jenkins Pipeline'
-                                git remote -v
-                                sh 'git push https://github.com/gurmindersingh5/CICD_kubernetes.git HEAD:main'
-                                '''
+                            dir('Deploy') {
+                                // Update the deployment YAML file
+                                sh "sed -i 's/v[^[:space:]]*/${BUILD_NUMBER}/g' deploy.yml"
+                                // Add the changes to git
+                                sh "git add deploy.yml"
+                                // Commit the changes
+                                sh "git commit -m 'Updated the deploy yml | Jenkins Pipeline'"
+                                // Push the changes to the remote repository
+                                sh "git push https://github.com/gurmindersingh5/CICD_kubernetes.git HEAD:main"
+                            }
                         }
                     }
                 }
