@@ -7,20 +7,10 @@ pipeline {
     environment { 
         IMAGE_TAG = "${BUILD_NUMBER}"    
         def dockerImage = 'gurmindersingh5/flask'
-           //USER_CREDENTIALS = credentials('pat')
+        def gitToken = credentials('pat')
     }
     
     stages {
-
-
-        // stage('Print Credentials') {
-        //     steps {
-        //            // echo "Credentials: ${USER_CREDENTIALS}"
-        //             echo "Username: ${USERNAME}"
-        //             echo "Password: ${PASSWORD}"
-        //         }
-        //     }
-
         
         stage('git-checkout') {
           steps {
@@ -75,103 +65,32 @@ pipeline {
         }
 
        stage('update k8s manifest and push to git') {
-                            def gitToken = credentials('pat')
+                            
+           def gitToken = credentials('pat')
 
-    steps {
+        steps {
 
-        script { 
-            sh '''
-                cd Deploy
-                sed -i "s/ver[^[:space:]]*/ver${BUILD_NUMBER}/g" deploy.yml
-                git add deploy.yml
-                git status
-                git commit -m 'Updated the deploy yml | Jenkins Pipeline'
-                git remote -v
-                echo 'made it to here'
-                git push https://gurmindersingh5:${gitToken}@github.com/gurmindersingh5/CICD_Kubernetes HEAD:main
-            '''
+            script { 
+                sh '''
+                    cd Deploy
+                    sed -i "s/ver[^[:space:]]*/ver${BUILD_NUMBER}/g" deploy.yml
+                    git add deploy.yml
+                    git status
+                    git commit -m 'Updated the deploy yml | Jenkins Pipeline'
+                    git remote -v
+                    echo 'made it to here'
+                    git push https://gurmindersingh5:${gitToken}@github.com/gurmindersingh5/CICD_Kubernetes HEAD:main
+                '''
+                }
+            }
         }
+    
+ 
     }
 }
-
-
         
-        //  stage('update k8s manifest and push to git') {
-        //      steps {             
-        //         script {
-        //             withCredentials([gitUsernamePassword(credentialsId: 'pat', gitToolName: 'git-tool')]) {
-        //                 sh '''
-        //                         cd Deploy
-        //                         sed -i "s/ver[^[:space:]]*/ver${BUILD_NUMBER}/g" deploy.yml
-        //                         git add deploy.yml
-        //                         git status
-        //                         git commit -m 'Updated the deploy yml | Jenkins Pipeline'
-        //                         git remote -v
-        //                         echo 'made it to here'
-        //                         git push https://github.com/gurmindersingh5/CICD_Kubernetes HEAD:main
-
-        //                     '''    
-                        
-        //             }
-        //             }
-        //         }
-        // }
-
-        
-    }
-}
-
-        
-
-//         stage('build python app continer') {
-       
-//             steps {             
-//                 sh '''
-//                     echo 'trying to run docker on agenet machine'
-//                     '''
-//                     //docker run hello-world
-                 
-
-//             }
-//         }
-
-        
-//     }
-// }
-
-
-// // pipeline {
-// //     agent any
-
-
-// //     stages {
-// //         stage ('git checkout') {
-// //             steps {
-// //                 echo 'Checking out the git repo' 
-// //                 // git branch: 'main', url: 'https://github.com/gurmindersingh5/localflaskapp.git'
-// //             }
-// //         }
-        
-// //         stage('pre-build test') {
-            
-// //             environment {
-// //                 SONAR_HOST_URL = "http://3.99.154.7:9000"
-// //                 SONAR_TOKEN = credentials('jenkins-integration') 
-// //                 SONAR_PROJECT_KEY = 'testflask' 
-// //                 }
-// //             steps {
-// //                 sh 'python3 --version'
-// //                 // withSonarQubeEnv('My SonarQube Server', envOnly: true) {
-// //                 //   // This expands the evironment variables SONAR_CONFIG_NAME, SONAR_HOST_URL, SONAR_AUTH_TOKEN that can be used by any script.
-// //                 //   println "${env.SONAR_HOST_URL}"
-// //                 //   }
-// //                 sh('sonar-scanner -Dsonar.projectKey=${SONAR_PROJECT_KEY} -Dsonar.sources=. -Dsonar.host.url=${SONAR_HOST_URL} -Dsonar.login=${SONAR_TOKEN}')
-// //             }
-// //         }
-// //     }
-
-// // }
-//notes:
+      
+// notes:
 // install java, jenkins, docker.io, docker-buildx
 // sudo usermod -aG docker jenkins ,(optional: docker ubuntu), systemctl restart docker
 // install docker and docker pipeline in jenkins website.
