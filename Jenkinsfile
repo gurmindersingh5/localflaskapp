@@ -66,8 +66,6 @@ pipeline {
 
        stage('update k8s manifest and push to git') {
                             
-           def gitToken = credentials('pat')
-
         steps {
 
             script { 
