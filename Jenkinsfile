@@ -49,6 +49,7 @@ pipeline {
              steps {             
                      script {
                             sh "echo 'pushing the artifacts to repo'"
+                            sh "docker login"
                             sh "docker push ${dockerImage}:ver${BUILD_NUMBER}"
                      }
                 }
