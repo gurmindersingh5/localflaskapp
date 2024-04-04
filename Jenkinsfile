@@ -74,7 +74,7 @@ pipeline {
         steps {
 
             script { 
-                sh """
+                sh '''
                     echo ${GITHUB_TOKEN}
                     git config user.email "gurminder.barca@gmail.com"
                     git config user.name "gurmindersingh5"
@@ -85,9 +85,9 @@ pipeline {
                     git commit -m 'Updated the deploy yaml | Jenkins Pipeline'
                     git remote -v
                     echo 'made it to here'
-                    git config credential.helper '!f() { echo "username=gurmindersingh5"; echo "password=\${GITHUB_TOKEN}"; }; f'
-                    git push https://github.com/gurmindersingh5/CICD_Kubernetes HEAD:main
-                """
+
+                    git push https://${GITHUB_TOKEN}github.com/gurmindersingh5/CICD_Kubernetes HEAD:main
+                '''
                 }
             
             }
