@@ -75,7 +75,7 @@ pipeline {
 
             script { 
                 sh '''
-                    
+                    cd Deploy
                     sed -i "s/ver[^[:space:]]*/ver${BUILD_NUMBER}/g" deploy.yaml
                     git add deploy.yaml
                     git status
