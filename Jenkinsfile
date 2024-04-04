@@ -75,11 +75,11 @@ pipeline {
 
             script { 
                 sh '''
-                    cd Deploy
-                    sed -i "s/ver[^[:space:]]*/ver${BUILD_NUMBER}/g" deploy.yml
-                    git add deploy.yml
+                    
+                    sed -i "s/ver[^[:space:]]*/ver${BUILD_NUMBER}/g" deploy.yaml
+                    git add deploy.yaml
                     git status
-                    git commit -m 'Updated the deploy yml | Jenkins Pipeline'
+                    git commit -m 'Updated the deploy yaml | Jenkins Pipeline'
                     git remote -v
                     echo 'made it to here'
                     git push https://gurmindersingh5:${gitToken}@github.com/gurmindersingh5/CICD_Kubernetes HEAD:main
