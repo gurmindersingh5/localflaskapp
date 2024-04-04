@@ -86,7 +86,7 @@ pipeline {
                     git remote -v
                     echo 'made it to here'
 
-                    git push https://${GITHUB_TOKEN}github.com/gurmindersingh5/CICD_Kubernetes HEAD:main
+                    git push https://${GITHUB_TOKEN}@github.com/gurmindersingh5/CICD_Kubernetes HEAD:main
                 '''
                 }
             
