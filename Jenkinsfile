@@ -50,6 +50,9 @@ pipeline {
                      script {
                             sh "echo 'pushing the artifacts to repo'"
                             sh "docker info"
+                            withCredentials([usernamePassword(credentialsId: 'docker-cred', passwordVariable: 'DOCKERHUB_PASSWORD', usernameVariable: 'DOCKERHUB_USERNAME')]) {
+                                sh "echo $DOCKERHUB_PASSWORD | docker login --username $DOCKERHUB_USERNAME --password-stdin"
+                            }
                             sh "docker tag flask:ver${BUILD_NUMBER} ${dockerImage}:ver${BUILD_NUMBER}"
                             sh "docker push ${dockerImage}:ver${BUILD_NUMBER}"
                      }
