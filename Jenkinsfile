@@ -7,7 +7,7 @@ pipeline {
     environment { 
         IMAGE_TAG = "${BUILD_NUMBER}"    
         def dockerImage = 'gurmindersingh5/flask'
-        def GITHUB_TOKEN = credentials('pat')
+       // def GITHUB_TOKEN = credentials('pat')
     }
     
     stages {
@@ -73,9 +73,11 @@ pipeline {
                             
         steps {
 
-            script { 
+
+                 withCredentials([string(credentialsId: 'pat', variable: 'GITHUB_TOKEN')]) {
+
                 sh '''
-                    echo ${GITHUB_TOKEN}
+
                     git config user.email "gurminder.barca@gmail.com"
                     git config user.name "gurmindersingh5"
                     cd Deploy
