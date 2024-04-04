@@ -7,7 +7,7 @@ pipeline {
     environment { 
         IMAGE_TAG = "${BUILD_NUMBER}"    
         def dockerImage = 'gurmindersingh5/flask'
-        def gitToken = credentials('pat')
+        //def gitToken = credentials('pat')
     }
     
     stages {
@@ -72,9 +72,12 @@ pipeline {
        stage('update k8s manifest and push to git') {
                             
         steps {
+            withCredentials([string(credentialsId: 'pat', variable: 'GITHUB_TOKEN')]) {
 
             script { 
                 sh '''
+                    git config user.email "gurminder.barca@gmail.com"
+                    git config user.name "gurmindersingh5"
                     cd Deploy
                     sed -i "s/ver[^[:space:]]*/ver${BUILD_NUMBER}/g" deploy.yaml
                     git add deploy.yaml
@@ -82,9 +85,10 @@ pipeline {
                     git commit -m 'Updated the deploy yaml | Jenkins Pipeline'
                     git remote -v
                     echo 'made it to here'
-                    git push https://${gitToken}@github.com/gurmindersingh5/CICD_Kubernetes HEAD:main
+                    git push https://${GITHUB_TOKEN}@github.com/gurmindersingh5/CICD_Kubernetes HEAD:main
                 '''
                 }
+            }
             }
         }
     
