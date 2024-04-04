@@ -38,7 +38,7 @@ pipeline {
         stage('Build using docker') {
              steps {             
                      script {
-                         sh "DOCKER_BUILDKIT=1 docker build -t ${dockerImage}:ver${BUILD_NUMBER} --file=docker/Dockerfile ."
+                         sh "DOCKER_BUILDKIT=1 docker build -t flask:ver${BUILD_NUMBER} --file=docker/Dockerfile ."
                          //sh "docker run -d -p 8000:8000 --name ${dockerImage} ${dockerImage}:${BUILD_NUMBER}"
                          //sh 'docker ps'
                      }
@@ -50,7 +50,7 @@ pipeline {
                      script {
                             sh "echo 'pushing the artifacts to repo'"
                             sh "docker info"
-
+                            sh "docker tag flask:ver${BUILD_NUMBER} ${dockerImage}:ver${BUILD_NUMBER}"
                             sh "docker push ${dockerImage}:ver${BUILD_NUMBER}"
                      }
                 }
