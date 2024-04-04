@@ -7,7 +7,7 @@ pipeline {
     environment { 
         IMAGE_TAG = "${BUILD_NUMBER}"    
         def dockerImage = 'gurmindersingh5/flask'
-        //def gitToken = credentials('pat')
+        def GITHUB_TOKEN = credentials('pat')
     }
     
     stages {
@@ -72,7 +72,6 @@ pipeline {
        stage('update k8s manifest and push to git') {
                             
         steps {
-            withCredentials([string(credentialsId: 'pat', variable: 'GITHUB_TOKEN')]) {
 
             script { 
                 sh """
@@ -90,7 +89,7 @@ pipeline {
                     git push https://github.com/gurmindersingh5/CICD_Kubernetes HEAD:main
                 """
                 }
-            }
+            
             }
         }
     
