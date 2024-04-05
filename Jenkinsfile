@@ -74,7 +74,7 @@ pipeline {
         steps {
 
                script {
-            // Using triple double quotes for Groovy string that includes shell command
+
             sh """
                 git config user.email "gurminder.barca@gmail.com"
                 git config user.name "gurmindersingh5"
