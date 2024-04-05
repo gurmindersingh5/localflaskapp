@@ -38,7 +38,9 @@ pipeline {
         stage('Build using docker') {
              steps {             
                      script {
-                         sh "DOCKER_BUILDKIT=1 docker build -t flask:ver${BUILD_NUMBER} --file=docker/Dockerfile ."
+                         // for arm64
+                         sh "DOCKER_BUILDKIT=1 docker build --platform linux/arm64 -t flask:ver${BUILD_NUMBER} --file=docker/Dockerfile ."
+                         //sh "DOCKER_BUILDKIT=1 docker build -t flask:ver${BUILD_NUMBER} --file=docker/Dockerfile ."
                          //sh "docker run -d -p 8000:8000 --name ${dockerImage} ${dockerImage}:${BUILD_NUMBER}"
                          //sh 'docker ps'
                      }
