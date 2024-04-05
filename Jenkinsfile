@@ -73,19 +73,21 @@ pipeline {
                             
         steps {
 
-                sh '''
-
-                    git config user.email "gurminder.barca@gmail.com"
-                    git config user.name "gurmindersingh5"
-                    cd Deploy
-                    sed -i "s/v[^[:space:]]*/v${BUILD_NUMBER}/g" deploy.yaml
-                    git add deploy.yaml
-                    git status
-                    git commit -m 'Updated the deploy yaml | Jenkins Pipeline'
-                    git remote -v
-                    echo 'made it to here'
-                    git push https://${GITHUB_TOKEN}@github.com/gurmindersingh5/CICD_Kubernetes HEAD:main
-                '''
+               script {
+            // Using triple double quotes for Groovy string that includes shell command
+            sh """
+                git config user.email "gurminder.barca@gmail.com"
+                git config user.name "gurmindersingh5"
+                cd Deploy
+                sed -i "s/v[^[:space:]]*/v${BUILD_NUMBER}/g" deploy.yaml
+                git add deploy.yaml
+                git status
+                git commit -m 'Updated the deploy yaml | Jenkins Pipeline'
+                git remote -v
+                echo 'made it to here'
+                git push https://${GITHUB_TOKEN}@github.com/gurmindersingh5/CICD_Kubernetes HEAD:main
+            """
+        }
             
             }
         }
