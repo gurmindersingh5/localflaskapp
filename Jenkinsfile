@@ -53,8 +53,8 @@ pipeline {
                             withCredentials([usernamePassword(credentialsId: 'docker-cred', passwordVariable: 'DOCKERHUB_PASSWORD', usernameVariable: 'DOCKERHUB_USERNAME')]) {
                                 sh "echo $DOCKERHUB_PASSWORD | docker login --username $DOCKERHUB_USERNAME --password-stdin"
                             }
-                            sh "docker tag flask:ver${BUILD_NUMBER} ${dockerImage}:v${BUILD_NUMBER}"
-                            sh "docker push ${dockerImage}:v${BUILD_NUMBER}"
+                            sh "docker tag flask:ver${BUILD_NUMBER} ${dockerImage}:ver${BUILD_NUMBER}"
+                            sh "docker push ${dockerImage}:ver${BUILD_NUMBER}"
                      }
                 }
         }
@@ -79,7 +79,7 @@ pipeline {
                 git config user.email "gurminder.barca@gmail.com"
                 git config user.name "gurmindersingh5"
                 cd Deploy
-                sed -i "s/v[^[:space:]]*/v${BUILD_NUMBER}/g" deploy.yaml
+                sed -i "s/ver[^[:space:]]*/ver${BUILD_NUMBER}/g" deploy.yaml
                 git add deploy.yaml
                 git status
                 git commit -m 'Updated the deploy yaml | Jenkins Pipeline'
