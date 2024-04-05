@@ -7,7 +7,7 @@ pipeline {
     environment { 
         IMAGE_TAG = "${BUILD_NUMBER}"    
         def dockerImage = 'gurmindersingh5/flask'
-       // def GITHUB_TOKEN = credentials('pat')
+       def GITHUB_TOKEN = credentials('pat')
     }
     
     stages {
@@ -73,9 +73,6 @@ pipeline {
                             
         steps {
 
-
-                 withCredentials([string(credentialsId: 'pat', variable: 'GITHUB_TOKEN')]) {
-
                 sh '''
 
                     git config user.email "gurminder.barca@gmail.com"
@@ -87,14 +84,8 @@ pipeline {
                     git commit -m 'Updated the deploy yaml | Jenkins Pipeline'
                     git remote -v
                     echo 'made it to here'
+                    git push https://${GITHUB_TOKEN}@github.com/gurmindersingh5/CICD_Kubernetes HEAD:main
                 '''
-                sh """
-                    git push https://\${GITHUB_TOKEN}@github.com/gurmindersingh5/CICD_Kubernetes HEAD:main
-                """
-
-                   // git push https://${GITHUB_TOKEN}@github.com/gurmindersingh5/CICD_Kubernetes HEAD:main
-                
-                }
             
             }
         }
