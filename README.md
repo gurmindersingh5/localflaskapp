@@ -7,6 +7,8 @@ This is an simple Inventory Managment app where you can:
 6. It has Admin login authentication for editing and deleting inventory (protectd inventory routes)
 7. Also has graphs for analytics
 
-run apache2conf.sh using these commands:
+run apache2conf.sh using these commands if you are on Ubuntu:
 chmod +x script.sh
 sh script.sh
+
+Otherwise just clone and run it.
