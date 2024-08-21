@@ -1,2 +1,3 @@
-run apache2conf.sh by making it ecexutable by this command:
+run apache2conf.sh using these commands:
 chmod +x script.sh
+sh script.sh
